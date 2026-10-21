@@ -3,6 +3,8 @@ from firecrawl import Firecrawl
 import os
 from dotenv import load_dotenv
 from rich import print
+from bs4 import BeautifulSoup
+import requests
 
 load_dotenv()
 
@@ -36,4 +38,21 @@ def web_search(query: str) -> str:
     except Exception as e:
         return f"Web search failed: {str(e)}"
 
-print(web_search.invoke({"query": "latest AI news"}))
+@tool
+def scrape_url(url: str) -> str:
+    """Scrape and return clean text content from a given URL for deeper reading."""
+    try:
+        resp = requests.get(url, timeout=8, headers={"User-Agent": "Mozilla/5.0"})
+        soup = BeautifulSoup(resp.text, "html.parser")
+        for tag in soup(["script", "style", "nav", "footer"]):
+            tag.decompose()
+        return soup.get_text(separator=" ", strip=True)[:100]
+    except Exception as e:
+        return f"Could not scrape URL: {str(e)}" 
+
+
+print(
+    scrape_url.invoke({
+        "url": "https://indianexpress.com/section/technology/artificial-intelligence/"
+    })
+)
