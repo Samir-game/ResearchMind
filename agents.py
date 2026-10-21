@@ -29,7 +29,8 @@ def build_reader_agent():
         tools = [scrape_url]
     )
 
-#writer chain- for compiling result gotten from both agents and making it more clean and focus oriented
+#writer chain- for compiling result gotten from both agents and 
+# making it more clean and focus oriented
 
 writer_prompt = ChatPromptTemplate.from_messages([
     ("system", "You are an expert research writer. Write clear, structured and insightful reports."),
@@ -51,7 +52,9 @@ Be detailed, factual and professional."""),
 
 writer_chain = writer_prompt | llm | StrOutputParser()
 
-#critic_chain 
+#critic_chain - this will be reviewer of the output of the writer chain and 
+#will review the output generated and suggesent strength, areas to improve
+#and give a score out of 10
 
 critic_prompt = ChatPromptTemplate.from_messages([
      ("system", "You are a sharp and constructive research critic. Be honest and specific."),
