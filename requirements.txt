@@ -1,0 +1,36 @@
+# Core LangChain framework
+langchain
+langchain-community
+langchain-google-genai
+
+# Google Gemini SDK (for direct Gemini API usage)
+google-genai
+
+# Firecrawl SDK (web search, scraping, crawling)
+firecrawl
+
+# Web scraping and HTTP
+beautifulsoup4
+requests
+lxml
+
+# Environment variables
+python-dotenv
+
+# Async HTTP support
+aiohttp
+
+# Data handling
+pandas
+
+# Logging and debugging
+rich
+
+# Retry handling
+tenacity
+
+# JSON processing
+orjson
+
+# HTML parsing (optional)
+html5lib
