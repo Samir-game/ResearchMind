@@ -20,9 +20,9 @@ def web_search(query: str) -> str:
     try:
         results = firecrawl.search(
             query,
-            limit=2
+            limit=1
         )
-
+        
         out = []
 
         # Firecrawl SDK search results contain web results
@@ -30,7 +30,7 @@ def web_search(query: str) -> str:
             out.append(
                 f"Title: {r.title}\n"
                 f"URL: {r.url}\n"
-                f"Snippet: {str(r.description or '')[:20]}\n"
+                f"Snippet: {str(r.description or '')[:100]}\n"
             )
 
         return "\n----\n".join(out) if out else "No results found."
@@ -46,13 +46,7 @@ def scrape_url(url: str) -> str:
         soup = BeautifulSoup(resp.text, "html.parser")
         for tag in soup(["script", "style", "nav", "footer"]):
             tag.decompose()
-        return soup.get_text(separator=" ", strip=True)[:100]
+        return soup.get_text(separator=" ", strip=True)[:500]
     except Exception as e:
         return f"Could not scrape URL: {str(e)}" 
 
-
-print(
-    scrape_url.invoke({
-        "url": "https://indianexpress.com/section/technology/artificial-intelligence/"
-    })
-)
