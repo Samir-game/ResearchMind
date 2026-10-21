@@ -34,3 +34,5 @@ orjson
 
 # HTML parsing (optional)
 html5lib
+
+streamlit
